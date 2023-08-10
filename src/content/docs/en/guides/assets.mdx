@@ -49,9 +49,9 @@ When you next run Astro, it will update your `src/env.d.ts` file to configure ty
 
 Create `src/assets/`, which Astro will recognize as your new assets folder.
 
-We recommend storing all images to be optimized in the `src/assets/` directory to make use of our official `~/assets` alias, although this location is optional. If you don't know where to put your images, or if you're building a product around Astro (e.g. a CMS), you can put your images there and we promise we won't break them! But, images can be stored anywhere, including alongside your content, if you prefer.
+We recommend storing all images to be optimized in the `src/assets/` directory, although this location is optional.
 
-Your images can be used by components (`.astro`, `.mdx`, and other UI frameworks) and in Markdown files.
+Your images stored in `src/assets/` can be used by components (`.astro`, `.mdx`, and other UI frameworks) and in Markdown files.
 
 ### Update existing `<img>` tags
 
@@ -104,12 +104,6 @@ Your existing images in `public/` and remote images are still valid but are not 
 ### Convert from `@astrojs/image`
 
 **Built-in asset support is incompatible with the `@astrojs/image` integration.**
-
-:::note[cropping images]
-The Assets API does not support image cropping. The current behaviour is to resize images to fit.
-
-Use the `@astrojs/image` integration if you need support for cropping images. Alternatively, you can use the [`object-fit` CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) to achieve a similar result. 
-:::
 
 To avoid errors in your project, complete the following steps:
 
@@ -336,9 +330,9 @@ It returns an object with the following properties:
 
 ## Using sharp
 
-By default, Astro uses [Squoosh](https://github.com/GoogleChromeLabs/squoosh) to transform your images.
+By default, Astro uses [Squoosh](https://github.com/GoogleChromeLabs/squoosh) to transform your images. This supports all JavaScript environments.
 
-If you're building a static site or deploying an SSR site to a Node environment, we recommend using [sharp](https://github.com/lovell/sharp), which offers faster performance but requires Node. To use sharp, first install it:
+If you're deploying to a Node environment, you may want to use [sharp](https://github.com/lovell/sharp), which offers faster performance but requires Node. To use sharp, first install it:
 
 <PackageManagerTabs>
   <Fragment slot="npm">

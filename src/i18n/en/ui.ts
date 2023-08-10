@@ -72,6 +72,8 @@ export default {
 	'aside.tip': 'Tip',
 	'aside.caution': 'Caution',
 	'aside.danger': 'Danger',
+	// `<CodeSnippet>` vocabulary
+	'codeSnippet.terminalCaption': 'Terminal window',
 	// `<LanguageSelect>` vocabulary
 	'languageSelect.label': 'Select language',
 	// Integrations vocabulary
@@ -110,10 +112,9 @@ export default {
 	'feedback.success': 'Thanks! We received your feedback.',
 	// `<FileTree>` component
 	'fileTree.directoryLabel': 'Directory',
-	// Code snippet vocabulary
-	'expressiveCode.terminalWindowFallbackTitle': 'Terminal window',
-	'expressiveCode.copyButtonTooltip': 'Copy to clipboard',
-	'expressiveCode.copyButtonCopied': 'Copied!',
+	// CopyButton class in `<CodeSnippet>` component
+	'copyButton.title': 'Copy to clipboard',
+	'copyButton.tooltip': 'Copied!',
 	// Backend Guides vocabulary
 	'backend.navTitle': 'More backend service guides',
 };

@@ -31,7 +31,6 @@ A template directive is never included directly in the final HTML output of a co
 - `Object`: All truthy keys are added to the element `class`
 - `Array`: flattened
 - `Set`: flattened
-- `false` or `null`: skipped
 
 ```astro
 <!-- This -->
@@ -174,7 +173,7 @@ If the component is already hidden and shown by a media query in your CSS, then 
 
 ### Custom Client Directives
 
-Since Astro 2.6.0, integrations can also add custom `client:*` directives to change how and when components should be hydrated.
+Since Astro 2.5.0, integrations can also add custom client directives through the [experimental `addClientDirective` API](/en/reference/integrations-reference/#addclientdirective-option). You can use custom `client:*` directives to change how and when components should be hydrated.
 
 Visit the [`addClientDirective` API](/en/reference/integrations-reference/#addclientdirective-option) page to learn more about creating a custom client directive.
 

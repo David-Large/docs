@@ -56,65 +56,79 @@ export const recipeSchema = baseSchema.extend({
 	description: z.string(),
 });
 
-export const docsCollectionSchema = z.union([
-	baseSchema,
-	backendSchema,
-	cmsSchema,
-	integrationSchema,
-	migrationSchema,
-	tutorialSchema,
-	deploySchema,
-	recipeSchema,
-]);
-
-export type DocsEntryData = z.infer<typeof docsCollectionSchema>;
-
-export type DocsEntryType = DocsEntryData['type'];
-
-export type DocsEntry<T extends DocsEntryType> = CollectionEntry<'docs'> & {
-	data: Extract<DocsEntryData, { type: T }>;
+export type DeployEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof deploySchema>;
 };
 
-export function createIsDocsEntry<T extends DocsEntryType>(type: T) {
-	return (entry: CollectionEntry<'docs'>): entry is DocsEntry<T> => entry.data.type === type;
-}
+export type BackendEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof backendSchema>;
+};
 
-export type DeployEntry = DocsEntry<'deploy'>;
+export type CmsEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof cmsSchema>;
+};
 
-export type BackendEntry = DocsEntry<'backend'>;
+export type IntegrationEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof integrationSchema>;
+};
 
-export type CmsEntry = DocsEntry<'cms'>;
+export type MigrationEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof migrationSchema>;
+};
 
-export type IntegrationEntry = DocsEntry<'integration'>;
+export type TutorialEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof tutorialSchema>;
+};
 
-export type MigrationEntry = DocsEntry<'migration'>;
-
-export type TutorialEntry = DocsEntry<'tutorial'>;
-
-export type RecipeEntry = DocsEntry<'recipe'>;
+export type RecipeEntry = CollectionEntry<'docs'> & {
+	data: z.infer<typeof recipeSchema>;
+};
 
 export type IntegrationCategory = z.infer<typeof integrationSchema>['category'];
 
-export const isBackendEntry = createIsDocsEntry('backend');
+export function isBackendEntry(entry: CollectionEntry<'docs'>): entry is BackendEntry {
+	return entry.data.type === 'backend';
+}
 
-export const isCmsEntry = createIsDocsEntry('cms');
+export function isCmsEntry(entry: CollectionEntry<'docs'>): entry is CmsEntry {
+	return entry.data.type === 'cms';
+}
 
-export const isIntegrationEntry = createIsDocsEntry('integration');
+export function isIntegrationEntry(entry: CollectionEntry<'docs'>): entry is IntegrationEntry {
+	return entry.data.type === 'integration';
+}
 
-export const isTutorialEntry = createIsDocsEntry('tutorial');
+export function isTutorialEntry(entry: CollectionEntry<'docs'>): entry is TutorialEntry {
+	return entry.data.type === 'tutorial';
+}
 
-export const isMigrationEntry = createIsDocsEntry('migration');
+export function isMigrationEntry(entry: CollectionEntry<'docs'>): entry is MigrationEntry {
+	return entry.data.type === 'migration';
+}
 
-export const isRecipeEntry = createIsDocsEntry('recipe');
+export function isRecipeEntry(entry: CollectionEntry<'docs'>): entry is RecipeEntry {
+	return entry.data.type === 'recipe';
+}
 
 export function createIsLangEntry(lang: string) {
-	return (entry: CollectionEntry<'docs'>): boolean => entry.slug.startsWith(lang + '/');
+	return function isLangEntry(entry: CollectionEntry<'docs'>): boolean {
+		return entry.slug.startsWith(lang + '/');
+	};
 }
 
 export const isEnglishEntry = createIsLangEntry('en');
 
 const docs = defineCollection({
-	schema: docsCollectionSchema,
+	schema: z.union([
+		baseSchema,
+		backendSchema,
+		cmsSchema,
+		integrationSchema,
+		migrationSchema,
+		tutorialSchema,
+		deploySchema,
+		recipeSchema,
+	]),
 });
 
 export const collections = { docs };
