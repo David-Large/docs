@@ -2,7 +2,7 @@
 title: Build your Astro Site with Docker
 description: Learn how to build your Astro site using Docker.
 type: recipe
-i18nReady: false
+i18nReady: true
 ---
 
 [Docker](https://docker.com) is a tool to build, deploy, and run applications using containers.
@@ -17,6 +17,8 @@ Docker images and containers can be deployed to many different platforms, like A
 ## Creating a Dockerfile
 
 Create a file called `Dockerfile` in your project's root directory. This file contains the instructions to build your site, which will differ depending on your needs. This guide can't show all possible options but will give you starting points for SSR and static mode.
+
+If you're using another package manager than npm, you'll need to adjust the commands accordingly.
 
 ### SSR
 
@@ -45,6 +47,18 @@ FROM node:lts as runtime
 FROM node:lts-alpine as runtime
 ```
 :::
+
+### Adding a .dockerignore
+
+Adding a `.dockerignore` file to your project is best practice. This file describes which files or folders should be ignored in the Docker `COPY` or `ADD` commands, very similar to how `.gitignore` works. This speeds up the build process and reduces the size of the final image.
+
+```docker title=".dockerignore"
+.DS_Store
+node_modules
+dist
+```
+
+This file should go in the same directory as the `Dockerfile` itself. [Read the `.dockerignore` documentation for extra info](https://docs.docker.com/engine/reference/builder/#dockerignore-file)
 
 ### Static
 
@@ -76,11 +90,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build -- --mode custom
+RUN npm run build
 
 FROM nginx:alpine AS runtime
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 8080
 ```
 
 In order to build the Dockerfile above, you'll also need to create a configuration file for NGINX. Create a folder called `nginx` in your project's root directory and create a file called `nginx.conf` inside.
