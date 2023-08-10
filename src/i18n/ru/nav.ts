@@ -44,7 +44,6 @@ export default NavDictionary({
 	'getting-started': 'Начало работы',
 	install: 'Установка',
 	'blog-tutorial': 'Создать блог',
-	'guides/backend': 'Услуги бэкенда',
 	'guides/client-side-scripts': 'Скрипты и обработка событий',
 	'guides/cms': 'Подключение CMS',
 	// 'guides/content': 'Авторский контент',

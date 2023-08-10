@@ -51,7 +51,7 @@ export default NavDictionary({
 	'guides/server-side-rendering': 'サーバーサイドレンダリング（SSR）',
 	'core-concepts/endpoints': 'エンドポイント',
 	'guides/data-fetching': 'データフェッチ',
-	'guides/middleware': 'ミドルウェア',
+	'guides/middleware': 'ミドルウェア（実験的）',
 	'guides/testing': 'テスト',
 	'guides/troubleshooting': 'トラブルシューティング',
 

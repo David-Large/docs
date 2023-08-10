@@ -11,12 +11,13 @@ description: 布局简介——一种在页面中共享常用布局的 Astro 组
 
 但是，布局组件没有什么特别的！它们可以像任何其他 Astro 组件一样[接受 props](/zh-cn/core-concepts/astro-components/#组件参数)和[导入和使用其他组件](/zh-cn/core-concepts/astro-components/#组件概述)。它们可以包含[UI 框架组件](/zh-cn/core-concepts/framework-components/)和[客户端脚本](/zh-cn/guides/client-side-scripts/)。它们甚至不必提供完整的页面外壳，而是可以用作部分 UI 模板。
 
-布局组件通常放置在项目中的 `src/layouts` 目录中，但这不是必须的。你可以选择将它们放置在项目中的任何位置。你甚至可以通过[在布局组件名称前面加上“_”](/zh-cn/core-concepts/routing/#排除页面)将布局组件与页面放在同一个文件夹中。
+布局组件通常放置在项目中的 `src/layouts` 目录中，但这不是必须的。
 
 ## 示例布局
 
+**`src/layouts/MySiteLayout.astro`**
+
 ```astro "<slot />" 
-// src/layouts/MySiteLayout.astro
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -43,8 +44,9 @@ const { title } = Astro.props
 </html>
 ```
 
-```astro {3} /</?MySiteLayout>/
-// src/pages/index.astro
+**`src/pages/index.astro`**
+
+```astro {2} /</?MySiteLayout>/
 ---
 import MySiteLayout from '../layouts/MySiteLayout.astro';
 ---
@@ -247,8 +249,9 @@ const { title } = Astro.props.frontmatter || Astro.props;
 
 例如，`BlogPostLayout.astro` 布局组件可以对文章的标题、日期和作者进行样式化。然后，`BaseLayout.astro` 可以处理页面模板的其余部分，例如导航和页脚。你还可以将从文章接收的 props 传递给另一个布局，就像任何其他嵌套组件一样。
 
-```astro {3} /</?BaseLayout>/ /</?BaseLayout url={frontmatter.url}>/
-// src/layouts/BlogPostLayout.astro
+**`src/layouts/BlogPostLayout.astro`**
+
+```astro {2} /</?BaseLayout>/ /</?BaseLayout url={frontmatter.url}>/
 ---
 import BaseLayout from './BaseLayout.astro'
 const {frontmatter} = Astro.props;

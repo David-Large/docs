@@ -11,7 +11,6 @@ const allLanguages = {
 	ko: '한국어',
 	pl: 'Polski',
 	ru: 'Русский',
-	it: 'Italiano',
 } as const;
 
 // Build for two languages only to speed up Astro's smoke tests
